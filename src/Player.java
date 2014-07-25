@@ -14,4 +14,11 @@ public class Player {
     public void addPoints(int points) {this.points+=points;}
     public int getLevel(){return level;}
     public int getPoints() {return points;}
+    
+    //after each round clear everyone of points, etc.
+    public void reset() {
+        points = 0;
+        friends.clear();
+        napoleon = false;
+    }
 }
