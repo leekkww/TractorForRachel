@@ -9,6 +9,6 @@ public class TractorGame {
 	private ArrayList<Player> players;
 	private ArrayList<Card> deck;
 	private Player firstPlayer;
-	private Suit trump;
+	private Card.Suit trump;
 	
 }
