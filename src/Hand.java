@@ -12,9 +12,20 @@ public class Hand {
      */
     public boolean isValidPlay(ArrayList<Card> play)
     {
+        if(play.size() == 0) {
+        	System.out.println("Invalid play: can't play zero cards"); //comment out if too annoying or something
+        	return false; //just in case bad things happen
+        }
         if(play.size()==1) {return true;}
         //if played hand is bigger than 1, check that all are of the same suit
-        else return false;
+        Card.Suit suit = play.get(0).suit();
+        if(suit == Card.Suit.NONE) suit = Card.trumpSuit(); //joker suit == trump suit
+        for(int i = 1; i < play.size(); i++) {
+        	if(suit.isTrump() && play.get(i).suit().isTrump()) continue;//trumps are all the same suit
+        	if(play.get(i).suit() != suit) return false;
+        }
+        //is this all? ew are including challenging so yes i think
+        return true;
     }
 
     public boolean isValidPlay(ArrayList<Card> play, ArrayList<Card> initPlay, Card.Suit currentSuit)
