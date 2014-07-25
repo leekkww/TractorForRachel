@@ -7,6 +7,10 @@ public class Hand {
 
     private ArrayList<Card> hand;
 
+    public void add(Card c) {
+        hand.add(c);
+    }
+
     /**
      * checks if a play is valid at the start of a round
      */

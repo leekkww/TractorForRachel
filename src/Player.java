@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Player {
 
-    private Hand hand;
+    private Hand hand = new Hand();
     private int points = 0;
     private int level = 2;
     private ArrayList<Player> friends = new ArrayList<Player>();
@@ -34,6 +34,10 @@ public class Player {
 
     public void addFriend(Player p){
         friends.add(p);
+    }
+
+    public void addCard(Card c) {
+        hand.add(c);
     }
 
     //after each round clear everyone of points, etc.
