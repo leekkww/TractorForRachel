@@ -18,7 +18,7 @@ public class Player {
     //after each round clear everyone of points, etc.
     public void reset() {
         points = 0;
-        friends = new ArrayList<Player> ();
+        friends.clear();
         napoleon = false;
     }
 }
