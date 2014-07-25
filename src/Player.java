@@ -9,7 +9,7 @@ public class Player {
     private int points = 0;
     private int level = 2;
     private ArrayList<Player> friends;
-    private boolean napolean;
+    private boolean napoleon;
 
     public void addPoints(int points) {this.points+=points;}
     public int getLevel(){return level;}
