@@ -21,7 +21,7 @@ public class Hand {
     {
         for(int i = 0; i < initPlay.size(); ++i)
         {
-            //initPlay.get(1).isTrump();
+            //initPlay.get(0).isTrump();
         }
         return false;
     }
