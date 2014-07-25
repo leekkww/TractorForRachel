@@ -11,12 +11,12 @@ public class Trick {
 	//Never ever use
 	public Trick() {
 		cards = new ArrayList<Card> ();
-	}
+		player = null;
 
-    public Trick(Player p, ArrayList<Card> c) {
-        cards = (ArrayList<Card>)(c.clone());//c.clone()? is this necessary? (possibly)
-        Collections.sort(cards);
-        player = p;
+	public Trick(Player p, ArrayList<Card> c) {
+		cards = (ArrayList<Card>)(c.clone());//c.clone()? is this necessary? (possibly)
+		Collections.sort(cards);
+		player = p;
 	}
 	
 	public int size() {
@@ -54,10 +54,18 @@ public class Trick {
 		if(suit() != Card.Suit.NONE && t.suit() == Card.Suit.NONE) return 1;
 		
 		//add stuff depending on contents of cards
-        return 0;
+		return 0;
 	}
 	
 	public boolean isPair() {
 		return size() == 2 && cards.get(0).equals(cards.get(1));
+	}
+	
+	public boolean isTractor() {
+		if(size() % 2 != 0 || size() == 2) return false;
+		for(int i = 0; i < size() / 2; i++) {
+			if(!cards.get(2*i).equals(cards.get(2*i+1))) return false;
+		}
+		//check if they're in order
 	}
 }
