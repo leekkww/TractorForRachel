@@ -25,4 +25,18 @@ public class Hand {
         }
         return false;
     }
+
+    public boolean hasTractor(int size) {
+        //tractor must be same suit and consecutive
+        return false;
+    }
+
+    public boolean hasPair(Card.Suit suit) {
+        //stuff here
+        return false;
+    }
+
+    public boolean hasLeadingCards() {
+        return false;
+    }
 }
