@@ -42,6 +42,12 @@ public class Card implements Comparable {
     public Suit suit() {return suit;}
     public Value value() {return value;}
     
+    //basically if it's a joker, trumpnumber, etc it is the same as the trumpsuit
+    public Suit effectiveSuit() {
+        if(value() == trumpValue() || suit() == trumpSuit() || suit() == Suit.NONE) return trumpSuit;
+        else return suit();
+    }
+    
     public boolean isTrump() {return suit == trumpSuit || value == trumpValue || value == Value.LOWJOKER || value == Value.HIGHJOKER;}
     public int pointValue() {
         switch(value) {
