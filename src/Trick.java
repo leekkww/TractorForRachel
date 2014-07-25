@@ -10,8 +10,9 @@ public class Trick {
 	
 	//Never ever use
 	public Trick() {
-		cards = new ArrayList<Card> ();
-		player = null;
+        cards = new ArrayList<Card>();
+        player = null;
+    }
 
 	public Trick(Player p, ArrayList<Card> c) {
 		cards = (ArrayList<Card>)(c.clone());//c.clone()? is this necessary? (possibly)
