@@ -33,6 +33,10 @@ public class Card implements Comparable {
                 default: return HIGHJOKER;
             }
         }
+        
+        public String toString() {
+            return this.name();
+        }
     }
 
     public enum Suit {
@@ -40,6 +44,10 @@ public class Card implements Comparable {
         
         public boolean isTrump() {
             return this == Card.trumpSuit() || this == NONE; //syntax is hard
+        }
+        
+        public String toString() {
+            return this.name();
         }
     }
     
@@ -90,6 +98,11 @@ public class Card implements Comparable {
         int selfIndex = valueToInt(value) + suitToInt(suit);
         int cIndex = valueToInt(c.value) + suitToInt(c.suit);
         return selfIndex - cIndex;
+    }
+    
+    public String toString() {
+        if(value == HIGHJOKER || value == LOWJOKER) return value.toString();
+        return value.toString() + " of " + suit.toString();
     }
 
     /*
