@@ -10,7 +10,7 @@ public class Card implements Comparable {
     private Suit suit;
 
     public enum Value {
-        TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING, ACE, LOWJOKER, HIGHJOKER
+        TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING, ACE, LOWJOKER, HIGHJOKER;
         
         //what would be the value of the next highest card if no trumpvalues
         public Value inc() {
@@ -155,9 +155,9 @@ public class Card implements Comparable {
      */
     public boolean isNextTo(Card c) {
         //handle jokers and cards with trump value
-        if(this.value == HIGHJOKER) return false;
-        if(this.value == LOWJOKER) return c.value() == HIGHJOKER;
-        if(this.value == trumpValue && this.suit == trumpSuit) return c.value() == LOWJOKER;
+        if(this.value == Value.HIGHJOKER) return false;
+        if(this.value == Value.LOWJOKER) return c.value() == Value.HIGHJOKER;
+        if(this.value == trumpValue && this.suit == trumpSuit) return c.value() == Value.LOWJOKER;
         if(this.value == trumpValue && this.suit != trumpSuit) return c.value() == trumpValue && c.suit() == trumpSuit;
         if(this.isTrump()) {
             //eww we need to do annoying stuff
@@ -165,7 +165,7 @@ public class Card implements Comparable {
                 return c.value == trumpValue && c.suit != trumpSuit;
             }
             if(this.value == Value.KING) {
-                if(Value.ACE == trumpValue) return c.value = trumpValue && c.value != trumpSuit;
+                if(Value.ACE == trumpValue) return c.value == trumpValue && c.suit != trumpSuit;
                 else return c.value == Value.ACE && c.suit == this.suit;
             }
         } else {
