@@ -82,3 +82,4 @@ public class Trick {
 		return true;
 	}
 }
+
