@@ -76,9 +76,9 @@ public class Trick {
 			if(!cards.get(2*i).equals(cards.get(2*i+1))) return false;
 		}
 		//check if they're in order
-
-
-
-        return false;
+		for(int i = 1; i < size(); i += 2) {
+			if(!cards.get(i).isNextTo(cards.get(i+1)) return false;
+		}
+		return true;
 	}
 }
