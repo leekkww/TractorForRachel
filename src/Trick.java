@@ -12,11 +12,11 @@ public class Trick {
 	public Trick() {
 		cards = new ArrayList<Card> ();
 	}
-	
-	public Trick(Player p, ArrayList<Card> c) {
-		cards = c.clone();//c.clone()? is this necessary? (possibly)
-		Collections.sort(cards);
-		player = p;
+
+    public Trick(Player p, ArrayList<Card> c) {
+        cards = (ArrayList<Card>)(c.clone());//c.clone()? is this necessary? (possibly)
+        Collections.sort(cards);
+        player = p;
 	}
 	
 	public int size() {
@@ -55,6 +55,7 @@ public class Trick {
 		if(suit() != Card.Suit.NONE && t.suit() == Card.Suit.NONE) return 1;
 		
 		//add stuff depending on contents of cards
+        return 0;
 	}
 	
 	public boolean isPair() {

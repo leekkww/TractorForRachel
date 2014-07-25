@@ -1,7 +1,7 @@
 /**
  * Created by Jolee on 7/24/2014.
  */
-public class Card {
+public class Card implements Comparable {
     
     private static Suit trumpSuit;
     private static Value trumpValue;
@@ -57,11 +57,13 @@ public class Card {
     
     //returns what card is higher, e.g. which is going to win in a head to head
     //compareTo == 0 does not mean the cards are equal
-    public int compareTo(Card c) {
+    public int compareTo(Object o) {
+        Card c = (Card)o;
         int selfIndex = valueToInt(value) + suitToInt(suit);
         int cIndex = valueToInt(c.value) + suitToInt(c.suit);
         return selfIndex - cIndex;
     }
+
     /*
     *   valueToInt and suitToInt are the hackiest things ever pls help
     */
