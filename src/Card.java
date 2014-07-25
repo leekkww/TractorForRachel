@@ -15,6 +15,10 @@ public class Card {
 
     public enum Suit {
         CLUBS, DIAMONDS, HEARTS, SPADES, NONE
+        
+        public boolean isTrump() {
+            return this == Card.trumpSuit() || this == NONE; //syntax is hard
+        }
     }
     
     //Never ever use this
