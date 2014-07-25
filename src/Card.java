@@ -36,9 +36,9 @@ public class Card {
     public static Value trumpValue() {return trumpValue;}
     
     public Suit suit() {return suit;}
-    public Vaue value() {return value;}
+    public Value value() {return value;}
     
-    public boolean isTrump() {return suit == trumpSuit || value == trumpValue || value == LOWJOKER || value == HIGHJOKER;}
+    public boolean isTrump() {return suit == trumpSuit || value == trumpValue || value == Value.LOWJOKER || value == Value.HIGHJOKER;}
     public int pointValue() {
         switch(value) {
             case FIVE: return 5;
@@ -57,21 +57,21 @@ public class Card {
     */
     private int valueToInt(Value v) {
         switch(v) {
-            case Value.TWO: return 2;
-            case Value.THREE: return 3;
-            case Value.FOUR: return 4;
-            case Value.FIVE: return 5;
-            case Value.SIX: return 6;
-            case Value.SEVEN: return 7;
-            case Value.EIGHT: return 8;
-            case Value.NINE: return 9;
-            case Value.TEN: return 10;
-            case Value.JACK: return 11;
-            case Value.QUEEN: return 12;
-            case Value.KING: return 13;
-            case Value.ACE: return 14;
-            case Value.LOWJOKER: return 1000;
-            case Value.HIGHJOKER: return 2000;
+            case TWO: return 2;
+            case THREE: return 3;
+            case FOUR: return 4;
+            case FIVE: return 5;
+            case SIX: return 6;
+            case SEVEN: return 7;
+            case EIGHT: return 8;
+            case NINE: return 9;
+            case TEN: return 10;
+            case JACK: return 11;
+            case QUEEN: return 12;
+            case KING: return 13;
+            case ACE: return 14;
+            case LOWJOKER: return 1000;
+            case HIGHJOKER: return 2000;
             default: return 0;
         }
     }
@@ -91,7 +91,7 @@ public class Card {
     }
     
     public Value[] normalValues() {
-        Value[] vals = new Value[13];
+        Value[] value = new Value[13];
         value[0] = Value.TWO;
         value[1] = Value.THREE;
         value[2] = Value.FOUR;
@@ -105,5 +105,6 @@ public class Card {
         value[10] = Value.QUEEN;
         value[11] = Value.KING;
         value[12] = Value.ACE;
+        return value;
     }
 }
