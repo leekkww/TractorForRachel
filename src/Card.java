@@ -11,6 +11,28 @@ public class Card implements Comparable {
 
     public enum Value {
         TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING, ACE, LOWJOKER, HIGHJOKER
+        
+        //what would be the value of the next highest card if no trumpvalues
+        public Value inc() {
+            switch(this) {
+                case TWO: return THREE;
+                case THREE: return FOUR;
+                case FOUR: return FIVE;
+                case FIVE: return SIX;
+                case SIX: return SEVEN;
+                case SEVEN: return EIGHT;
+                case EIGHT: return NINE;
+                case NINE: return TEN;
+                case TEN: return JACK;
+                case JACK: return QUEEN;
+                case QUEEN: return KING;
+                case KING: return ACE;
+                case ACE: return LOWJOKER; //this is bad
+                case LOWJOKER: return HIGHJOKER;
+                case HIGHJOKER: return HIGHJOKER;
+                default: return HIGHJOKER;
+            }
+        }
     }
 
     public enum Suit {
@@ -124,5 +146,34 @@ public class Card implements Comparable {
         value[11] = Value.KING;
         value[12] = Value.ACE;
         return value;
+    }
+    
+    /*
+     *  returns if one card would be after another in a tractor
+     *  pls test this
+     *  @paramm c The card to be right after this
+     */
+    public boolean isNextTo(Card c) {
+        //handle jokers and cards with trump value
+        if(this.value == HIGHJOKER) return false;
+        if(this.value == LOWJOKER) return c.value() == HIGHJOKER;
+        if(this.value == trumpValue && this.suit == trumpSuit) return c.value() == LOWJOKER;
+        if(this.value == trumpValue && this.suit != trumpSuit) return c.value() == trumpValue && c.suit() == trumpSuit;
+        if(this.isTrump()) {
+            //eww we need to do annoying stuff
+            if(this.value == Value.ACE) { //guaranteed not to be a trumpvalue else already handled above
+                return c.value == trumpValue && c.suit != trumpSuit;
+            }
+            if(this.value == Value.KING) {
+                if(Value.ACE == trumpValue) return c.value = trumpValue && c.value != trumpSuit;
+                else return c.value == Value.ACE && c.suit == this.suit;
+            }
+        } else {
+            //more annoying stuff
+            if(this.value == Value.ACE) return false;
+            if(this.value == Value.KING && trumpValue == Value.ACE) return false;
+        }
+        if(this.value.inc() == trumpValue) return c.value == trumpValue.inc() && c.suit == suit;
+        return c.value == value.inc() && c.suit == suit;
     }
 }
