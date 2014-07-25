@@ -121,7 +121,7 @@ public class Card implements Comparable {
         return 0;
     }
     
-    public Suit[] normalSuits() {
+    public static Suit[] normalSuits() {
         Suit[] suits = new Suit[4];
         suits[0] = Suit.CLUBS;
         suits[1] = Suit.DIAMONDS;
@@ -130,7 +130,7 @@ public class Card implements Comparable {
         return suits;
     }
     
-    public Value[] normalValues() {
+    public static Value[] normalValues() {
         Value[] value = new Value[13];
         value[0] = Value.TWO;
         value[1] = Value.THREE;
