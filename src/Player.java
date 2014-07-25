@@ -8,18 +8,34 @@ public class Player {
     private Hand hand;
     private int points = 0;
     private int level = 2;
-    private ArrayList<Player> friends;
+    private ArrayList<Player> friends = new ArrayList<Player>();
     private boolean napoleon;
     
     //random pointless shit
-    public String name = "Rachel Zhang";
-    public String gender = "Male";
-    public int age = 16;
+    public String name;
+    public String gender;
+    public int age;
+
+    //the optimized player
+    public Player() {
+        name = "Rachel Zhang";
+        gender = "Male";
+        age = 16;
+    }
+
+    public Player(String name, int level) {
+        this.name = name;
+        this.level = level;
+    }
 
     public void addPoints(int points) {this.points+=points;}
-    public int getLevel(){return level;}
+    public int getLevel() {return level;}
     public int getPoints() {return points;}
-    
+
+    public void addFriend(Player p){
+        friends.add(p);
+    }
+
     //after each round clear everyone of points, etc.
     public void reset() {
         points = 0;
