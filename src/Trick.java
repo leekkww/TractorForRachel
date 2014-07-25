@@ -31,6 +31,14 @@ public class Trick {
 	public Player getPlayer() {
 		return player;
 	}
+
+    public int pointValue(){
+        int pts = 0;
+        for(Card c : cards) {
+            pts += c.pointValue();
+        }
+        return pts;
+    }
 	
 	/*
 	 *	If the trick is made of different suits this will return NONE
@@ -68,5 +76,9 @@ public class Trick {
 			if(!cards.get(2*i).equals(cards.get(2*i+1))) return false;
 		}
 		//check if they're in order
+
+
+
+        return false;
 	}
 }
