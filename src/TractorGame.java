@@ -1,8 +1,7 @@
 /**
  * Created by Jolee on 7/18/2014.
  */
- 
- import java.util.*;
+import java.util.*;
  
 public class TractorGame {
 	

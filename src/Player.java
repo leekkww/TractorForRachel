@@ -1,7 +1,8 @@
-import java.util.*;
 /**
  * Created by Jolee on 7/24/2014.
  */
+import java.util.*;
+
 public class Player {
 
     private Hand hand;
