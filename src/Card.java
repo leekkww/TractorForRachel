@@ -47,6 +47,12 @@ public class Card {
         }
     }
     
+    public boolean equals(Card c) {
+        return value == c.value && suit == c.suit;
+    }
+    
+    //returns what card is higher, e.g. which is going to win in a head to head
+    //compareTo == 0 does not mean the cards are equal
     public int compareTo(Card c) {
         int selfIndex = valueToInt(value) + suitToInt(suit);
         int cIndex = valueToInt(c.value) + suitToInt(c.suit);
