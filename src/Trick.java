@@ -1,7 +1,7 @@
 /*
  *  Created by Sean on 7/25/2014
  */
-import java.utli.*;
+import java.util.*;
 
 public class Trick {
 	
