@@ -36,11 +36,10 @@ public class Trick {
 	 *	otherwise it will return the appropriate suit (one of Clubs, Diamonds, Hearts, Spades)
 	 */
 	public Card.Suit suit() {
-		Card.Suit s = cards.get(0).suit();
-		if(s == Card.Suit.NONE) s = Card.trumpSuit();
+		Card.Suit s = cards.get(0).effectiveSuit();
 		for(int i = 1; i < cards.size(); i++) {
 			if(s.isTrump() != cards.get(i).isTrump()) return Card.Suit.NONE;
-			else if(!s.isTrump() && s != cards.get(i).suit()) return Card.Suit.NONE;
+			else if(!s.isTrump() && s != cards.get(i).effectiveSuit()) return Card.Suit.NONE;
 		}
 		return s;
 	}
