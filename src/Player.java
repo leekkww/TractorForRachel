@@ -10,6 +10,11 @@ public class Player {
     private int level = 2;
     private ArrayList<Player> friends;
     private boolean napoleon;
+    
+    //random pointless shit
+    public String name = "Rachel Zhang";
+    public String gender = "Male";
+    public int age = 16;
 
     public void addPoints(int points) {this.points+=points;}
     public int getLevel(){return level;}
@@ -21,4 +26,9 @@ public class Player {
         friends.clear();
         napoleon = false;
     }
+    
+    /* //uncomment when ready to actually do this
+    public ArrayList<Card> move() {
+        //either put in an ai here or ask for moves from console or something
+    }*/
 }
