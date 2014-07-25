@@ -101,7 +101,7 @@ public class Card implements Comparable {
     }
     
     public String toString() {
-        if(value == HIGHJOKER || value == LOWJOKER) return value.toString();
+        if(value == Value.HIGHJOKER || value == Value.LOWJOKER) return value.toString();
         return value.toString() + " of " + suit.toString();
     }
 
