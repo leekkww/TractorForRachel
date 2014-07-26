@@ -7,6 +7,11 @@ public class Hand {
 
     private ArrayList<Card> hand;
 
+    @SuppressWarnings("unchecked")
+    public Hand(ArrayList<Card> h) {
+        hand = (ArrayList<Card>) h.clone();
+    }
+
     public void add(Card c) {
         hand.add(c);
     }
