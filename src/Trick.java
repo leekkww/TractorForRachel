@@ -40,7 +40,7 @@ public class Trick {
         return pts;
     }
 	
-	/*
+	/**
 	 *	If the trick is made of different suits this will return NONE
 	 *	otherwise it will return the appropriate suit (one of Clubs, Diamonds, Hearts, Spades)
 	 */
@@ -85,5 +85,18 @@ public class Trick {
 		}
 		return true;
 	}
-}
 
+    /**
+     * for now this method accepts anything that is of the same suit
+     * also if you can think of a shorter method name that would be great
+     */
+    public boolean isAcceptableLeadingTrick() {
+        if(suit() == Card.Suit.NONE)
+        {
+            for(int i = 0; i<size(); ++i) {
+                if (!cards.get(i).isTrump()) {return false;}
+            }
+        }
+        return true;
+    }
+}
