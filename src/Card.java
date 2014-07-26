@@ -109,6 +109,7 @@ public class Card implements Comparable {
     *   valueToInt and suitToInt are the hackiest things ever pls help
     */
     private int valueToInt(Value v) {
+        if(v == trumpValue) return 500;
         switch(v) {
             case TWO: return 2;
             case THREE: return 3;

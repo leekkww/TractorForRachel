@@ -65,6 +65,10 @@ public class Trick {
 		//add stuff depending on contents of cards
 		return 0;
 	}
+
+    public String toString() {
+        return cards.toString();
+    }
 	
 	public boolean isPair() {
 		return size() == 2 && cards.get(0).equals(cards.get(1));
@@ -76,7 +80,7 @@ public class Trick {
 			if(!cards.get(2*i).equals(cards.get(2*i+1))) return false;
 		}
 		//check if they're in order
-		for(int i = 1; i < size(); i += 2) {
+		for(int i = 1; i < size()-2; i += 2) {
 			if(!cards.get(i).isNextTo(cards.get(i+1))) return false;
 		}
 		return true;

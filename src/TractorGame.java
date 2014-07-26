@@ -40,13 +40,23 @@ public class TractorGame {
     }
 
     public static void main(String[] args) {
-        //test for deck
         TractorGame tg = new TractorGame();
         tg.deck = tg.shuffledDeck();
-        for(Card c : tg.deck)
-        {
-            System.out.println(c.toString());
+        Card.setTrump(Card.Suit.CLUBS);
+        Card.setTrump(Card.Value.ACE);
+        Player rachel = new Player();
+        for(int k = 0; k < 108; k ++)
+            for(int l = k+1; l <108;l++)
+        for(int i = l+1; i < 108; i++) {
+            for(int j = i+1; j < 108; j++) {
+                ArrayList<Card> a = new ArrayList<Card>();
+                a.add(tg.deck.get(i));
+                a.add(tg.deck.get(j));
+                a.add(tg.deck.get(k));
+                a.add(tg.deck.get(l));
+                Trick t = new Trick(rachel, a);
+                if(t.isTractor()) System.out.println(t.toString() + " is a tractor");
+            }
         }
-        System.out.println(tg.deck.size());
     }
 }
