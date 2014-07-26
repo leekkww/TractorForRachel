@@ -8,8 +8,9 @@ public class Player {
     private Hand hand = new Hand();
     private int points = 0;
     private int level = 2;
-    private ArrayList<Player> friends = new ArrayList<Player>();
+    private ArrayList<Player> friends = new ArrayList<Player>();//Sean: this may be bad, suggest a boolean flag "isFriend"
     private boolean napoleon;
+    private Player nextPlayer;
     
     //random pointless shit
     public String name;
@@ -36,6 +37,10 @@ public class Player {
         friends.add(p);
     }
 
+    public void setNextPlayer(Player p) {
+        nextPlayer = p;
+    }
+
     public void addCard(Card c) {
         hand.add(c);
     }
@@ -48,7 +53,8 @@ public class Player {
     }
     
     /* //uncomment when ready to actually do this
-    public ArrayList<Card> move() {
+    public ArrayList<CTrick> move() {
         //either put in an ai here or ask for moves from console or something
+        //then divide into different Hands (cuz of that annoying "can play multiple hands sort of" rule thing
     }*/
 }
