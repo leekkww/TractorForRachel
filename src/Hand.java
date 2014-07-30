@@ -7,6 +7,8 @@ public class Hand {
 
     private ArrayList<Card> hand;
 
+    public Hand() { hand = new ArrayList<Card>();}
+
     @SuppressWarnings("unchecked")
     public Hand(ArrayList<Card> h) {
         hand = (ArrayList<Card>) h.clone();
@@ -39,7 +41,7 @@ public class Hand {
         return true;
     }
 
-    public boolean isValidPlay(ArrayList<Card> play, ArrayList<Card> initPlay, Card.Suit currentSuit)
+    public boolean isValidPlay(Trick play, Trick initPlay)
     {
         for(int i = 0; i < initPlay.size(); ++i)
         {
@@ -66,5 +68,15 @@ public class Hand {
         for(Card c : playedCards) {
             hand.remove(c);
         }
+    }
+
+    public String toString() { return hand.toString(); }
+
+    public int pointValue(){
+        int pts = 0;
+        for(Card c : hand) {
+            pts += c.pointValue();
+        }
+        return pts;
     }
 }
