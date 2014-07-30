@@ -165,7 +165,7 @@ public class Card implements Comparable {
     /*
      *  returns if one card would be after another in a tractor
      *  pls test this
-     *  @paramm c The card to be right after this
+     *  @param c  The card to be right after this
      */
     public boolean isNextTo(Card c) {
         //handle jokers and cards with trump value
