@@ -1,14 +1,13 @@
 /**
  * Created by Jolee on 7/24/2014.
  */
-import java.util.*;
 
 public class Player {
 
     private Hand hand = new Hand();
     private int points = 0;
     private int level = 2;
-    private ArrayList<Player> friends = new ArrayList<Player>();//Sean: this may be bad, suggest a boolean flag "isFriend"
+    private boolean isFriend; //friend of the napolean, that is
     private boolean napoleon;
     private Player nextPlayer;
     
@@ -33,10 +32,6 @@ public class Player {
     public int getLevel() {return level;}
     public int getPoints() {return points;}
 
-    public void addFriend(Player p){
-        friends.add(p);
-    }
-
     public void setNextPlayer(Player p) {
         nextPlayer = p;
     }
@@ -48,7 +43,7 @@ public class Player {
     //after each round clear everyone of points, etc.
     public void reset() {
         points = 0;
-        friends.clear();
+        isFriend = false;
         napoleon = false;
     }
     
