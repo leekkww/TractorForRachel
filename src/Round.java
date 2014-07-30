@@ -6,37 +6,45 @@ import java.util.*;
 public class Round {
 	
 	private GameState gameState;
-	private ArrayList<Player> players;
-	public ArrayList<Card> deck; //hmm this should have 108 cards
-	private Player firstPlayer;
-	private Card.Suit trump;
-    private Hand baggage;
+    public ArrayList<Card> deck; //hmm this should have 108 cards
+    private ArrayList<Player> players;
+    private Player firstPlayer;
+    private Card.Suit trump;
+    private ArrayList<Card> baggage = new ArrayList<Card>();
+    private boolean flipped;
 
+    //default round with 4 players probably
     public Round(){
         deck = shuffledDeck();
     }
 
-    //move to Game class
-    public void initialize() {
-        //ask for names and stuff, but for now everyone is optimized
-        //or like load saved game with previously established settings
-        players = new ArrayList<Player>();
-        for(int i = 0; i<5; ++i) {
-            players.add(new Player());
-        }
-        for(int i = 0; i<5; ++i) {
-            players.get(i).setNextPlayer(players.get((i+1)%5));
-        }
+    public Round(ArrayList<Player> p) {
+        players = p;
     }
 
     //dealing or flipping stage
 
     //napolean decides on baggage
 
-    public void deal() {
-        //
+    public void setup() {
+        deck = shuffledDeck();
+        //leave baggage here
+        for(int i = 0; i<8; ++i)
+        {
+            baggage.add(deck.remove(0));
+        }
+        System.out.println(baggage.toString());
+
+        //hmm so I'm thinking you can just deal all the cards at once and then
+
+
     }
 
+    public void flip() {
+        //in which you flip things
+    }
+
+    //will have to vary for different number of players
     public ArrayList<Card> shuffledDeck() {
         ArrayList<Card> deck = new ArrayList<Card>();
         for(Card.Value v : Card.normalValues())
@@ -55,12 +63,13 @@ public class Round {
         return deck;
     }
 
+    //testing
     public static void main(String[] args) {
         Round tg = new Round();
         tg.deck = tg.shuffledDeck();
         Card.setTrump(Card.Suit.CLUBS);
         Card.setTrump(Card.Value.TWO);
-        Player rachel = new Player();
+        /*Player rachel = new Player();
         for(int o = 0; o < 108; o ++)
             for(int p = o+1; p < 108; p ++)
         for(int k = p+1; k < 108; k ++)
@@ -78,6 +87,8 @@ public class Round {
                 Trick t = new Trick(rachel, a);
                 if(t.isTractor()) System.out.println(t.toString() + " is a tractor");
             }
+            */
+        tg.setup();
 
     }
 }
