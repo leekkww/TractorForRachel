@@ -162,7 +162,7 @@ public class Card implements Comparable {
         return value;
     }
     
-    /*
+    /**
      *  returns if one card would be after another in a tractor
      *  pls test this
      *  @param c  The card to be right after this

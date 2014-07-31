@@ -4,14 +4,22 @@
 import java.util.*;
  
 public class Round {
-	
-	private GameState gameState;
+
+    public enum Stage {
+        DRAW, FLIP, CALL_FRIEND, PLAY, //dude these names suck
+    }
+
+	private GameState gameState = null;
     public ArrayList<Card> deck; //hmm this should have 108 cards
     private ArrayList<Player> players;
-    private Player firstPlayer;
-    private Card.Suit trump;
+    private Player firstPlayer; //player who plays first
+    private Card.Suit trump = Card.Suit.NONE;
     private ArrayList<Card> baggage = new ArrayList<Card>();
-    private boolean flipped;
+    private boolean flipped = false; //unnecessary?
+    private Trick currentFlip = null;
+
+    private Card friendCard;
+    private boolean setFriendSoon;//halp name this better, also this sees if the next friend card played actually is friend card
 
     //default round with 4 players probably
     public Round(){
@@ -24,10 +32,19 @@ public class Round {
 
     //dealing or flipping stage
 
-    //napolean decides on baggage
+    //napoleon decides on baggage
 
+    /**
+     * yo what does setup do???
+     */
+    @SuppressWarnings("unchecked")
     public void setup() {
         deck = shuffledDeck();
+
+        //the following lines of code may cause things to break when flipping things
+        Card.setTrump(Card.Suit.NONE);
+        Card.setTrump((Card.Value) null); //this is probably really really bad
+
         //leave baggage here
         for(int i = 0; i<8; ++i)
         {
@@ -40,8 +57,23 @@ public class Round {
 
     }
 
-    public void flip() {
+    public void setFirstPlayer(Player p) {firstPlayer = p;}
+
+    /**
+     * yo the method parameters need to contain this sort of information
+     * yo this method probably is really buggy
+     *
+     * @param p The player that flipped
+     * @param h The trick used to flip
+     */
+    public void flip(Player p, Trick h) {
         //in which you flip things
+        if(h.size() != 1 && !h.isPair()) return; //can't flip dumby tricks
+        if(currentFlip == null || currentFlip.size() == 1 && h.size() == 2 || h.compareTo(currentFlip) > 0) { //this may fail joker flips
+            //firstPlayer = p;
+            currentFlip = h;
+            trump = h.suit();
+        }
     }
 
     //will have to vary for different number of players
@@ -63,32 +95,5 @@ public class Round {
         return deck;
     }
 
-    //testing
-    public static void main(String[] args) {
-        Round tg = new Round();
-        tg.deck = tg.shuffledDeck();
-        Card.setTrump(Card.Suit.CLUBS);
-        Card.setTrump(Card.Value.TWO);
-        /*Player rachel = new Player();
-        for(int o = 0; o < 108; o ++)
-            for(int p = o+1; p < 108; p ++)
-        for(int k = p+1; k < 108; k ++)
-            for(int l = k+1; l <108;l++)
-        //for(int i = l+1; i < 108; i++)
-        //    for(int j = i+1; j < 108; j++)
-            {
-                ArrayList<Card> a = new ArrayList<Card>();
-                //a.add(tg.deck.get(i));
-                //a.add(tg.deck.get(j));
-                a.add(tg.deck.get(k));
-                a.add(tg.deck.get(l));
-                a.add(tg.deck.get(o));
-                a.add(tg.deck.get(p));
-                Trick t = new Trick(rachel, a);
-                if(t.isTractor()) System.out.println(t.toString() + " is a tractor");
-            }
-            */
-        tg.setup();
 
-    }
 }

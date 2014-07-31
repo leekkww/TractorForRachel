@@ -27,7 +27,21 @@ public class Trick {
 	public Card get(int i) {
 		return cards.get(i);
 	}
-	
+
+    /**
+     * yo this is hard
+     * this is for seeing if we have friend card(s) in the given trick
+     * @param c the card to compare
+     * @return the number of cards in the trick that are equal to c
+     */
+    public int getCardCount(Card c) {
+        int count = 0;
+        for(Card c2 : cards) {
+            if(c.equals(c2)) count++;
+        }
+        return count;
+    }
+
 	public Player getPlayer() {
 		return player;
 	}

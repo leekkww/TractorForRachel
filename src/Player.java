@@ -31,6 +31,7 @@ public class Player {
     public void addPoints(int points) {this.points+=points;}
     public int getLevel() {return level;}
     public int getPoints() {return points;}
+    public Hand getHand() {return hand;}
 
     public void setNextPlayer(Player p) {
         nextPlayer = p;
