@@ -52,8 +52,6 @@ public class Round {
         }
         System.out.println(baggage.toString());
 
-        //hmm so I'm thinking you can just deal all the cards at once and then
-
 
     }
 

@@ -50,13 +50,29 @@ public class Hand {
         return false;
     }
 
-    public boolean hasTractor(int size) {
+    public boolean hasTractor(Card.Suit suit, int size) {
         //tractor must be same suit and consecutive
+        ArrayList<Card> sameSuit = new ArrayList<Card>();
+        for(Card c : hand) {
+            if(c.suit() == suit) sameSuit.add(c);
+        }
+        Collections.sort(sameSuit); //dude i hope we have an ordering
+        for(int i = 0; i < sameSuit.size() - size + 1; i++) {
+            Trick t = new Trick(new Player(), (ArrayList<Card>) sameSuit.subList(i, i + size));
+            if(t.isTractor()) return true;
+        }
         return false;
     }
 
     public boolean hasPair(Card.Suit suit) {
-        //stuff here
+        ArrayList<Card> sameSuit = new ArrayList<Card>();
+        for(Card c : hand) {
+            if(c.suit() == suit) sameSuit.add(c);
+        }
+        Collections.sort(sameSuit); //dude i hope we have an ordering
+        for(int i = 0; i < sameSuit.size() - 1; i++) {
+            if(sameSuit.get(i) == sameSuit.get(i+1)) return true;
+        }
         return false;
     }
 

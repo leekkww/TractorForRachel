@@ -9,6 +9,9 @@ public class GameState {
     private Player taking; //who is taking the points?
     private Card.Suit playedSuit; //what suit was played first
 
+    public void play(Trick t) {
+        played.add(t);
+    }
     public void take() {
         //this should happen after all the players have gone
         //compare to see who is boss here

@@ -1,6 +1,7 @@
 /**
  * Created by Jolee on 7/24/2014.
  */
+import java.util.*;
 
 public class Player {
 
@@ -47,10 +48,10 @@ public class Player {
         isFriend = false;
         napoleon = false;
     }
-    
-    /* //uncomment when ready to actually do this
-    public ArrayList<CTrick> move() {
+
+    public ArrayList<Trick> move() {
         //either put in an ai here or ask for moves from console or something
         //then divide into different Hands (cuz of that annoying "can play multiple hands sort of" rule thing
-    }*/
+        return new ArrayList<Trick>();
+    }
 }
