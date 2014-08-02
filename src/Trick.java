@@ -76,7 +76,10 @@ public class Trick {
 		if(suit() == Card.Suit.NONE && t.suit() != Card.Suit.NONE) return -1;
 		if(suit() != Card.Suit.NONE && t.suit() == Card.Suit.NONE) return 1;
 		
-		//add stuff depending on contents of cards
+		//add stuff depending on contents of cards,
+		//by now t has cards of one suit, same with this
+        //also both are either trump or not trump
+
 		return 0;
 	}
 

@@ -6,10 +6,13 @@ import java.util.*;
 public class GameState {
 
     private ArrayList<Trick> played; //stores all the tricks that have been played
-    private Player taking; //who is taking the points?
+    private Player taking; //who is taking the points? is this necessary?
     private Card.Suit playedSuit; //what suit was played first
 
+    public Card.Suit getPlayedSuit() {return playedSuit;}
+
     public void play(Trick t) {
+        if(played.isEmpty()) playedSuit = t.suit();
         played.add(t);
     }
     public void take() {

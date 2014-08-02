@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Collections;
+
 /**
  * Created by Jolee on 7/24/2014.
  */
@@ -160,6 +163,25 @@ public class Card implements Comparable {
         value[11] = Value.KING;
         value[12] = Value.ACE;
         return value;
+    }
+
+    //will have to vary for different number of players
+    public static ArrayList<Card> shuffledDeck() {
+        ArrayList<Card> deck = new ArrayList<Card>();
+        for(Card.Value v : Card.normalValues())
+        {
+            for(Card.Suit s : Card.normalSuits())
+            {
+                deck.add(new Card(v,s));
+                deck.add(new Card(v,s));
+            }
+        }
+        deck.add(new Card(Card.Value.HIGHJOKER,Card.Suit.NONE));
+        deck.add(new Card(Card.Value.HIGHJOKER,Card.Suit.NONE));
+        deck.add(new Card(Card.Value.LOWJOKER,Card.Suit.NONE));
+        deck.add(new Card(Card.Value.LOWJOKER,Card.Suit.NONE));
+        Collections.shuffle(deck);
+        return deck;
     }
     
     /**

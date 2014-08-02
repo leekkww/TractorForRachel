@@ -23,7 +23,7 @@ public class Round {
 
     //default round with 4 players probably
     public Round(){
-        deck = shuffledDeck();
+        deck = Card.shuffledDeck();
     }
 
     public Round(ArrayList<Player> p) {
@@ -39,7 +39,7 @@ public class Round {
      */
     @SuppressWarnings("unchecked")
     public void setup() {
-        deck = shuffledDeck();
+        deck = Card.shuffledDeck();
 
         //the following lines of code may cause things to break when flipping things
         Card.setTrump(Card.Suit.NONE);
@@ -74,24 +74,24 @@ public class Round {
         }
     }
 
-    //will have to vary for different number of players
-    public ArrayList<Card> shuffledDeck() {
-        ArrayList<Card> deck = new ArrayList<Card>();
-        for(Card.Value v : Card.normalValues())
-        {
-            for(Card.Suit s : Card.normalSuits())
-            {
-                deck.add(new Card(v,s));
-                deck.add(new Card(v,s));
-            }
-        }
-        deck.add(new Card(Card.Value.HIGHJOKER,Card.Suit.NONE));
-        deck.add(new Card(Card.Value.HIGHJOKER,Card.Suit.NONE));
-        deck.add(new Card(Card.Value.LOWJOKER,Card.Suit.NONE));
-        deck.add(new Card(Card.Value.LOWJOKER,Card.Suit.NONE));
-        Collections.shuffle(deck);
-        return deck;
+
+
+    public void playGame() {
+        //deal everything out, allow people to flip
+
+        //figure out napoleon
+        //if no one flips, trump = 3rd card in baggage, napoleon = first player to flip
+
+        //napoleon calls friend card
+
+        //set first player = napoleon,
+
+        //while everyone's hands aren't empty play a round of stuff
+
+            //first player goes, then next, then next, etc.
+
+            //figure out who gets points and goes next
+
+        //figure out how many points not-napoleon team got and figure out leveling up based on that
     }
-
-
 }
