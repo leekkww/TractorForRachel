@@ -5,9 +5,12 @@ import java.util.*;
  */
 public class Testing {
     //testing
+
+    public static final int PAUSE_INCREMENT = 200; //hmm I think this is a pretty good speed, takes 20~25 seconds to deal all
+
     public static void main(String[] args) {
         Round tg = new Round();
-        tg.deck = tg.shuffledDeck();
+        tg.deck = Card.shuffledDeck();
         Card.setTrump(Card.Suit.CLUBS);
         Card.setTrump(Card.Value.TWO);
         /*Player rachel = new Player();
@@ -42,29 +45,48 @@ public class Testing {
         //this is how you deal
         Timer dealer = new Timer("the one who deals");
         for (int i = 0; i < 100; i++) {
-            dealer.schedule(new DealACard(players.get(i % 4), tg.deck.get(i)), i * 10 + 5); //dude offset adding stuff and reading stuff so no concurrentmodificationexception
+            dealer.schedule(new DealACard(players.get(i % 4), tg.deck.get(i)), i * PAUSE_INCREMENT + 5); //dude offset adding stuff and reading stuff so no concurrentmodificationexception
         }
+        dealer.schedule(new DealACard(dealer), PAUSE_INCREMENT * 100);
+
+        //everything here is a different thread
+        //ask the console for user input as they see their things
         try {
-            Thread.sleep(2000);
+            Thread.sleep(010);
         } catch(InterruptedException e) {
             e.printStackTrace();
         }
-        dealer.cancel();
+        System.out.println("yo patrick");
+        //dealer.cancel();
 
     }
 }
     class DealACard extends TimerTask {
         Card c;
         Player p;
+        boolean cancel;
+        Timer t;
+
+        public DealACard(Timer timer) {
+            cancel = true;
+            t = timer;
+            c = null;
+            p = null;
+        }
 
         public DealACard(Player p, Card c) {
             this.p = p;
             this.c = c;
+            cancel = false;
         }
 
         public void run() {
+            if(cancel) {
+                t.cancel();
+                return;
+            }
             p.addCard(c);
-            System.out.println(p.name + ": " + p.getHand() + "\n");
+            System.out.println(p.name + ": " + p.getHand() +p.getHand().size()+ "\n");
         }
 
     }

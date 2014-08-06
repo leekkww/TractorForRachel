@@ -17,13 +17,20 @@ public class Player {
     public String gender;
     public int age;
 
-    //the optimized player
+    /**
+     * Initializes a newly created Player object that is set to the optimal state.
+     */
     public Player() {
         name = "Rachel Zhang";
         gender = "Male";
         age = 16;
     }
 
+    /**
+     * Initializes a newly created Player object given a name and a level.
+     * @param name  name of the player to be displayed
+     * @param level  level of the player in the game of tractor
+     */
     public Player(String name, int level) {
         this.name = name;
         this.level = level;

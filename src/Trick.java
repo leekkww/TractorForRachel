@@ -4,10 +4,10 @@
 import java.util.*;
 
 public class Trick {
-	
+
 	private ArrayList<Card> cards;
 	private Player player;
-	
+
 	//Never ever use
 	public Trick() {
         cards = new ArrayList<Card>();
@@ -83,14 +83,23 @@ public class Trick {
 		return 0;
 	}
 
+    /**
+     * @return
+     */
     public String toString() {
         return cards.toString();
     }
-	
+
+    /**
+     * @return  whether or not the trick is a pair
+     */
 	public boolean isPair() {
 		return size() == 2 && cards.get(0).equals(cards.get(1));
 	}
-	
+
+    /**
+     * @return  whether or not the trick is a tractor
+     */
 	public boolean isTractor() {
 		if(size() % 2 != 0 || size() == 2) return false;
 		for(int i = 0; i < size() / 2; i++) {
@@ -105,7 +114,10 @@ public class Trick {
 
     /**
      * for now this method accepts anything that is of the same suit
+     * so like if it can be challenged that is okay too
      * also if you can think of a shorter method name that would be great
+     *
+     * @return  whether or not it is an acceptable leading trick
      */
     public boolean isAcceptableLeadingTrick() {
         if(suit() == Card.Suit.NONE)

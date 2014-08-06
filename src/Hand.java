@@ -50,7 +50,15 @@ public class Hand {
         return false;
     }
 
+    /**
+     * this checks whether or not there is a tractor
+     * @param suit  suit of the tractor
+     * @param size  size of the tractor
+     * @return  a boolean value for whether or not there is a tractor in the hand
+     */
     public boolean hasTractor(Card.Suit suit, int size) {
+        //maybe just make a trick out of every combination and see if there is a tractor?
+
         //tractor must be same suit and consecutive
         ArrayList<Card> sameSuit = new ArrayList<Card>();
         for(Card c : hand) {
@@ -86,8 +94,26 @@ public class Hand {
         }
     }
 
+    /**
+     * this turns the hand into a string.
+     *
+     * @return  String value of the hand
+     */
     public String toString() { return hand.toString(); }
 
+    /**
+     * gives the size of the hand
+     *
+     * @return  size of hand as int
+     */
+    public int size() { return hand.size();}
+
+    /**
+     * this gives the point value of the entire hand
+     * hmm not sure if this is actually necessary
+     *
+     * @return  point value of the hand
+     */
     public int pointValue(){
         int pts = 0;
         for(Card c : hand) {

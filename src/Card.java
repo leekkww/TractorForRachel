@@ -44,11 +44,19 @@ public class Card implements Comparable {
 
     public enum Suit {
         CLUBS, DIAMONDS, HEARTS, SPADES, NONE;
-        
+
+        /**
+         * Returns the boolean value for whether or not the given suit is a trump.
+         * @return  true if the card is a trump; false otherwise
+         */
         public boolean isTrump() {
             return this == Card.trumpSuit() || this == NONE; //syntax is hard
         }
-        
+
+        /**
+         * Returns a string representation of the suit.
+         * @return  a string representation of the suit
+         */
         public String toString() {
             return this.name();
         }
@@ -102,15 +110,21 @@ public class Card implements Comparable {
         int cIndex = valueToInt(c.value) + suitToInt(c.suit);
         return selfIndex - cIndex;
     }
-    
+
+    /**
+     * @return  the string version of the trick
+     */
     public String toString() {
         if(value == Value.HIGHJOKER || value == Value.LOWJOKER) return value.toString();
         return value.toString() + " of " + suit.toString();
     }
 
-    /*
-    *   valueToInt and suitToInt are the hackiest things ever pls help
-    */
+    /**
+     * valueToInt and suitToInt are the hackiest things ever pls help
+     *
+     * @param v  Card.value thing
+     * @return  the value of the card in order to compare it with stuff
+     */
     private int valueToInt(Value v) {
         if(v == trumpValue) return 500;
         switch(v) {
@@ -127,8 +141,8 @@ public class Card implements Comparable {
             case QUEEN: return 12;
             case KING: return 13;
             case ACE: return 14;
-            case LOWJOKER: return 1000;
-            case HIGHJOKER: return 2000;
+            case LOWJOKER: return 9000;
+            case HIGHJOKER: return 10000;
             default: return 0;
         }
     }

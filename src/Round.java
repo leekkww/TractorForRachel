@@ -55,23 +55,29 @@ public class Round {
 
     }
 
+    /**
+     * this sets the first player of the round
+     * @param p  The first player of the round
+     */
     public void setFirstPlayer(Player p) {firstPlayer = p;}
 
     /**
      * yo the method parameters need to contain this sort of information
      * yo this method probably is really buggy
      *
-     * @param p The player that flipped
-     * @param h The trick used to flip
+     * @param p  The player that flipped
+     * @param h  The trick used to flip
      */
-    public void flip(Player p, Trick h) {
+    public boolean flip(Player p, Trick h) {
         //in which you flip things
-        if(h.size() != 1 && !h.isPair()) return; //can't flip dumby tricks
+        if(h.size() != 1 && !h.isPair()) return false; //can't flip dumby tricks
         if(currentFlip == null || currentFlip.size() == 1 && h.size() == 2 || h.compareTo(currentFlip) > 0) { //this may fail joker flips
             //firstPlayer = p;
             currentFlip = h;
             trump = h.suit();
+            return true;
         }
+        return false;
     }
 
 
