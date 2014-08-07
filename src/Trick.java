@@ -2,6 +2,7 @@
  *  Created by Sean on 7/25/2014
  */
 import java.util.*;
+import java.lang.*;
 
 public class Trick {
 
@@ -147,7 +148,16 @@ public class Trick {
 		ArrayList<Tractor> ownTractor = pairToTractor(ownPairs);
 		ArrayList<Tractor> tTractor = pairToTractor(tPairs);
 		
-		 
+		int numTractors = min(ownTractor.size(), tTractor.size());
+		for(int i = 0; i < numTractors; i ++) {
+			if(ownTractor.get(i).compareTo(tTractor.get(i)) != 0) return -ownTractor.get(i).compareTo(tTractor.get(i));
+		}
+		if(ownTractor.size() != tTractor.size()) return ownTractor.size() - tTractor.size();
+		
+		//compare single cards (there better be equal numbers of them)
+		for(int i = ownCards.size() - 1; i >= 0; i--) {
+			if(ownCards.get(i).compareTo(tCards.get(i)) != 0) return ownCards.get(i).compareTo(tCards.get(i));
+		}
 		
 		return 0;
 	}
