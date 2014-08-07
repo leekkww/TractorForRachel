@@ -15,13 +15,14 @@ public class Round {
     private Player firstPlayer; //player who plays first
     private Card.Suit trump = Card.Suit.NONE;
     private ArrayList<Card> baggage = new ArrayList<Card>();
-    private boolean flipped = false; //unnecessary?
     private Trick currentFlip = null;
 
     private Card friendCard;
     private boolean setFriendSoon;//halp name this better, also this sees if the next friend card played actually is friend card
 
-    //default round with 4 players probably
+    /**
+     * default round with 4 players probably
+     */
     public Round(){
         deck = Card.shuffledDeck();
     }
@@ -46,7 +47,7 @@ public class Round {
         Card.setTrump((Card.Value) null); //this is probably really really bad
 
         //leave baggage here
-        for(int i = 0; i<8; ++i)
+        for(int i = 0; i<8; ++i) //8 must be modified for greater number of players
         {
             baggage.add(deck.remove(0));
         }
@@ -68,14 +69,16 @@ public class Round {
      * @param p  The player that flipped
      * @param h  The trick used to flip
      */
-    public boolean flip(Player p, Trick h) {
+    public boolean flip(Trick h) {
         //in which you flip things
         if(h.size() != 1 && !h.isPair()) return false; //can't flip dumby tricks
         if(currentFlip == null || currentFlip.size() == 1 && h.size() == 2 || h.compareTo(currentFlip) > 0) { //this may fail joker flips
-            //firstPlayer = p;
-            currentFlip = h;
-            trump = h.suit();
-            return true;
+            if(Card.normalValues()[h.getPlayer().getLevel()-2] == h.get(0).value() || h.get(0).value() == Card.Value.LOWJOKER) {//if it is pair of player level or jokers
+                //firstPlayer = h.getPlayer();
+                currentFlip = h;
+                trump = h.suit();
+                return true;
+            }
         }
         return false;
     }
