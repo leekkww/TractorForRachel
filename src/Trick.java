@@ -67,6 +67,36 @@ public class Trick {
 		return s;
 	}
 	
+	/**
+	 * Tractor is literally only there so I can do compareTo somewhat nicely (keyword somewhat)
+	 * 
+	 */
+	 
+	private class Tractor {
+		public Card firstCard;
+		public int length;
+		
+		public Tractor(Card c, int l) {
+			firstCard = c;
+			length = l;
+		}
+		
+		/**
+		 * returns negative if t is smaller so that sorting makes larger tractors go first (since im lazy af)
+		 * sorry
+		 */
+		public int compareTo(Tractor t) {
+			if(length != t.length) return -length + t.length;
+			return -firstCard.compareTo(t.firstCard));
+		}
+	}
+	
+	/**
+	 * @return an integer depending on whether t is bigger, smaller, or "equal/incomparable" to this
+	 * 
+	 * Note that if two tricks are both nontrump but different suit they can't be compared.
+	 * The suit difference needs to be handled elsewhere where compareTo was called from.
+	 */
 	public int compareTo(Trick t) {
 		if(size() != t.size()) return 0; //can't compare these things
 		
@@ -76,15 +106,76 @@ public class Trick {
 		if(suit() == Card.Suit.NONE && t.suit() != Card.Suit.NONE) return -1;
 		if(suit() != Card.Suit.NONE && t.suit() == Card.Suit.NONE) return 1;
 		
+		//also screw compartmentalization and stuff imma stuff everything into compareTo
+		
 		//add stuff depending on contents of cards,
 		//by now t has cards of one suit, same with this
         //also both are either trump or not trump
-
+		
+		//break each trick into tractors, pairs, singles
+		//imma modify the cards for convenience
+		ArrayList<Card> ownCards = (ArrayList<Card>) cards.clone();
+		ArrayList<Card> tCards = (ArrayList<Card>) t.cards.clone();
+		
+		ArrayList<Card> ownPairs = new ArrayList<Card> ();
+		ArrayList<Card> tPairs = new ArrayList<Card> ();
+		
+		for(int i = 0; i < ownCards.size(); i++) {
+			if(i < ownCards.size() - 1 && ownCards.get(i) == ownCards.get(i+1)) {
+				ownPairs.add(ownCards.get(i));
+				ownCards.remove(i);
+				ownCards.remove(i);
+				i--;
+			}
+		}
+		for(int i = 0; i < tCards.size(); i++) {
+			if(i < tCards.size() - 1 && tCards.get(i) == tCards.get(i+1)) {
+				tPairs.add(tCards.get(i));
+				tCards.remove(i);
+				tCards.remove(i);
+				i--;
+			}
+		}
+		
+		//by now tCards, ownCards should only have singles
+		
+		/* tractors consist of adjacent pairs, if we consider pairs as dumby tractors
+		 * then we can store the set of tractors as a set of ordered pairs (first card in tractor, length)
+		 * and do a lexicographic ordering on that set where length takes priority
+		 * 
+		 */
+		ArrayList<Tractor> ownTractor = pairToTractor(ownPairs);
+		ArrayList<Tractor> tTractor = pairToTractor(tPairs);
+		
+		 
+		
 		return 0;
+	}
+	
+	/**
+	 * @return an arraylist of tractors from the pairs
+	 * @param pairs the set of pairs 
+	 * This is also just to make the compareto nicer
+	 */
+	private ArrayList<Tractor> pairToTractor(ArrayList<Card> pairs) {
+		ArrayList<Tractor> tractors = new ArrayList<Tractor> ();
+		Collections.sort(pairs); //just in case, theoretically it should be sorted already
+		
+		while(!pairs.empty()) {
+			int length = 1;
+			
+			//this is supposed to set length = length of the tractor
+			while(length < pairs.size() && pairs.get(length-1).isNextTo(pairs.get(length))) length++; //TODO: test this
+			tractors.add(new Tractor(pairs.get(0), length));
+			pairs.removeRange(0, length);
+		}
+		
+		Collections.sort(tractors);
+		return tractors;
 	}
 
     /**
-     * @return
+     * @return the cards in the trick
      */
     public String toString() {
         return cards.toString();
