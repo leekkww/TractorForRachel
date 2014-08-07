@@ -22,7 +22,7 @@ public class GameState {
         Trick highest = played.get(0); //this better be the first trick played...
         taking = highest.getPlayer();
         for(Trick t: played) {
-            if(t.suit() != Card.Suit.trumpSuit() && t.suit() != playedSuit) continue;
+            if(t.suit() != Card.trumpSuit() && t.suit() != playedSuit) continue;
             if(t.compareTo(highest) > 0) {
                 taking = t.getPlayer();
                 highest = t;
