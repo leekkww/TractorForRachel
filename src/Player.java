@@ -11,10 +11,21 @@ public class Player {
     private boolean isFriend; //friend of the napolean, that is
     private boolean napoleon;
     private Player nextPlayer;
-    
-    //random pointless shit
+
+    /**
+     * Name of the player.
+     * aka random pointless shit
+     */
     public String name;
+    /**
+     * Gender of the player.
+     * aka random pointless shit
+     */
     public String gender;
+    /**
+     * Age of the player.
+     * aka random pointless shit
+     */
     public int age;
 
     /**

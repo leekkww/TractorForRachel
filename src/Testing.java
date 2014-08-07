@@ -6,7 +6,10 @@ import java.util.*;
 public class Testing {
     //testing
 
-    public static final int PAUSE_INCREMENT = 200; //hmm I think this is a pretty good speed, takes 20~25 seconds to deal all
+    /**
+     * Pause increment between dealing cards, in miliseconds.
+     */
+    public static final int PAUSE_INCREMENT = 10; //hmm I think 200 is a pretty good speed, takes 20~25 seconds to deal all
 
     public static void main(String[] args) {
         Round tg = new Round();
