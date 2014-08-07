@@ -47,10 +47,10 @@ public class Player {
         this.level = level;
     }
 
-    public void addPoints(int points) {this.points+=points;}
-    public int getLevel() {return level;}
-    public int getPoints() {return points;}
-    public Hand getHand() {return hand;}
+    public void addPoints(int points) { this.points+=points; }
+    public int getLevel() { return level; }
+    public int getPoints() { return points; }
+    public Hand getHand() { return hand; }
 
     public void setNextPlayer(Player p) {
         nextPlayer = p;
@@ -71,5 +71,10 @@ public class Player {
         //either put in an ai here or ask for moves from console or something
         //then divide into different Hands (cuz of that annoying "can play multiple hands sort of" rule thing
         return new ArrayList<Trick>();
+    }
+
+    public Trick play(ArrayList<Card> playedCards) {
+        hand.remove(playedCards);
+        return new Trick(this, playedCards);
     }
 }
