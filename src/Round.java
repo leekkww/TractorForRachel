@@ -66,7 +66,6 @@ public class Round {
      * yo the method parameters need to contain this sort of information
      * yo this method probably is really buggy
      *
-     * @param p  The player that flipped
      * @param h  The trick used to flip
      */
     public boolean flip(Trick h) {
