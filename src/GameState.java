@@ -18,12 +18,19 @@ public class GameState {
     public void take() {
         //this should happen after all the players have gone
         //compare to see who is boss here
+        //only consider tricks whose suits are trump or playedsuit
+        Trick highest = played.get(0); //this better be the first trick played...
+        taking = highest.getPlayer();
+        for(Trick t: played) {
+            if(t.suit() != Card.Suit.trumpSuit() && t.suit() != playedSuit) continue;
+            if(t.compareTo(highest) > 0) {
+                taking = t.getPlayer();
+                highest = t;
+            }
+        }
 
 
-
-        //default for now
-        taking = played.get(0).getPlayer();
-
+        
         int points = 0;
         for(Trick t : played)
         {
