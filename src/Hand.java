@@ -18,11 +18,28 @@ public class Hand {
         hand.add(c);
     }
 
+    public void remove(ArrayList<Card> d) {
+        for(Card c : d) {
+            hand.remove(c);
+        }
+    }
+
+    public boolean contains(Card c) {
+        for(Card handCard : hand)
+        {
+            if(c.equals(handCard)) { return true; }
+        }
+        return false;
+    }
+
+    public Card get(int i) {
+        return hand.get(i);
+    }
+
     /**
      * checks if a play is valid at the start of a round
+     * now that Trick is built in, check if it is a valid trick instead
      */
-
-    //now that Trick is built in, check if it is a valid trick instead
     public boolean isValidPlay(ArrayList<Card> play)
     {
         if(play.size() == 0) {
@@ -86,12 +103,6 @@ public class Hand {
 
     public boolean hasLeadingCards() {
         return false;
-    }
-
-    public void play(ArrayList<Card> playedCards) {
-        for(Card c : playedCards) {
-            hand.remove(c);
-        }
     }
 
     /**
