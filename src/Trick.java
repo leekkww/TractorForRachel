@@ -173,6 +173,7 @@ public class Trick {
 
         if(suit() == t.suit()) {
             //yo this better work lol
+            //not too necessary cuz of challenging
             int numTractors = Math.min(ownTractor.size(), tTractor.size());
             for (int i = 0; i < numTractors; i++) {
                 if (ownTractor.get(i).compareTo(tTractor.get(i)) != 0)
