@@ -99,6 +99,17 @@ public class Trick {
 			return -firstCard.compareTo(t.firstCard);
 		}
 	}
+
+
+    /**
+     *
+     *
+     * @param s the suit in question
+     * @return whether the suit is a suit that has the possibility of taking
+     */
+    private boolean canTake(Card.Suit s) {
+        return s == Card.trumpSuit() || s == GameState.getPlayedSuit();
+    }
 	
 	/**
 	 * @return an integer depending on whether t is bigger, smaller, or "equal/incomparable" to this
@@ -108,19 +119,23 @@ public class Trick {
 	 */
 	public int compareTo(Trick t) {
 		if(size() != t.size()) return 0; //can't compare these things
-		
-		if(suit() == Card.trumpSuit() && t.suit() != Card.trumpSuit()) return 1;
-		if(suit() != Card.trumpSuit() && t.suit() == Card.trumpSuit()) return -1;
-		
+
+        //BAD
+		//if(suit() == Card.trumpSuit() && t.suit() != Card.trumpSuit()) return 1;
+		//if(suit() != Card.trumpSuit() && t.suit() == Card.trumpSuit()) return -1;
+
 		if(suit() == Card.Suit.NONE && t.suit() != Card.Suit.NONE) return -1;
 		if(suit() != Card.Suit.NONE && t.suit() == Card.Suit.NONE) return 1;
-		
+
+        if(canTake(suit()) && !canTake(t.suit())) return 1;
+        if(!canTake(suit()) && canTake(t.suit())) return -1;
+        if(!canTake(suit()) && !canTake(t.suit())) return 0;
 		//also screw compartmentalization and stuff imma stuff everything into compareTo
 		
 		//add stuff depending on contents of cards,
 		//by now t has cards of one suit, same with this
-        //also both are either trump or not trump
-		
+		//also both are either trumpsuit or original played suit
+
 		//break each trick into tractors, pairs, singles
 		//imma modify the cards for convenience
 		ArrayList<Card> ownCards = (ArrayList<Card>) cards.clone();
@@ -155,25 +170,62 @@ public class Trick {
 		 */
 		ArrayList<Tractor> ownTractor = pairToTractor(ownPairs);
 		ArrayList<Tractor> tTractor = pairToTractor(tPairs);
-		
-		int numTractors = Math.min(ownTractor.size(), tTractor.size());
-		for(int i = 0; i < numTractors; i ++) {
-			if(ownTractor.get(i).compareTo(tTractor.get(i)) != 0) return -ownTractor.get(i).compareTo(tTractor.get(i));
-		}
-		if(ownTractor.size() != tTractor.size()) return ownTractor.size() - tTractor.size();
-		
-		//compare single cards (there better be equal numbers of them)
-		for(int i = ownCards.size() - 1; i >= 0; i--) {
-			if(ownCards.get(i).compareTo(tCards.get(i)) != 0) return ownCards.get(i).compareTo(tCards.get(i));
-		}
-		
+
+        if(suit() == t.suit()) {
+            //yo this better work lol
+            int numTractors = Math.min(ownTractor.size(), tTractor.size());
+            for (int i = 0; i < numTractors; i++) {
+                if (ownTractor.get(i).compareTo(tTractor.get(i)) != 0)
+                    return -ownTractor.get(i).compareTo(tTractor.get(i)); // compareTo is backwards lol
+            }
+            if (ownTractor.size() != tTractor.size()) return ownTractor.size() - tTractor.size();
+
+            //compare single cards (there better be equal numbers of them)
+            for (int i = ownCards.size() - 1; i >= 0; i--) {
+                if (ownCards.get(i).compareTo(tCards.get(i)) != 0) return ownCards.get(i).compareTo(tCards.get(i));
+            }
+        } else {
+            boolean tIsTrump = (t.suit() == Card.trumpSuit());
+            if(!tIsTrump) {
+                //switch ownTractor and tTractor s.t. tTractor holds the trump tractors, also switch ownCards, tCards
+                ArrayList <Tractor> tmp = ownTractor;
+                ownTractor = tTractor;
+                tTractor = tmp;
+
+                /*
+                 * the trump hand wins if and only if it can match all tractors in the non tromp hand
+                 * with some combination of tractors/split tractors (wtf)
+                 * Then all that matters are the lengths of the tractors
+                 */
+                int[] ownLengths = new int[20];
+                int[] tLengths = new int[20];
+
+                for(int i = 0; i < ownTractor.size(); i ++) {
+                    ownLengths[ownTractor.get(i).length] ++;
+                }
+
+                for(int i = 0; i < tTractor.size(); i ++) {
+                    tLengths[tTractor.get(i).length] ++;
+                }
+
+                /*
+                 * now we want to test whether it is possible to make a set of ownLengths out of tLengths
+                 * uhh this seems hard
+                 * i actually have to think darn
+                 * you know what a simple recursive brute force will work (problem size = at most 3 tractors lol)
+                 */
+
+                //return 1 if t is trump xor trump beats nontrump (the function for this requires work...)
+                //else return -1
+            }
+        }
 		return 0;
 	}
 	
 	/**
-	 * @return an arraylist of tractors from the pairs
+	 * @return an ArrayList of tractors from the pairs
 	 * @param pairs the set of pairs 
-	 * This is also just to make the compareto nicer
+	 * This is also just to make the compareTo nicer
 	 */
 	private ArrayList<Tractor> pairToTractor(ArrayList<Card> pairs) {
 		ArrayList<Tractor> tractors = new ArrayList<Tractor> ();

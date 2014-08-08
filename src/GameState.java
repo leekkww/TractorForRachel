@@ -5,17 +5,18 @@ import java.util.*;
 
 public class GameState {
 
-    private ArrayList<Trick> played; //stores all the tricks that have been played
-    private Player taking; //who is taking the points? is this necessary?
-    private Card.Suit playedSuit; //what suit was played first
+    private static ArrayList<Trick> played; //stores all the tricks that have been played
+    private static Player taking; //who is taking the points? is this necessary?
+    private static Card.Suit playedSuit; //what suit was played first
 
-    public Card.Suit getPlayedSuit() {return playedSuit;}
+    public static Card.Suit getPlayedSuit() {return playedSuit;}
 
-    public void play(Trick t) {
+    public static void play(Trick t) {
         if(played.isEmpty()) playedSuit = t.suit();
         played.add(t);
     }
-    public void take() {
+
+    public static void take() {
         //this should happen after all the players have gone
         //compare to see who is boss here
         //only consider tricks whose suits are trump or playedsuit
@@ -40,7 +41,7 @@ public class GameState {
     }
 
     //reset after each round
-    public void reset() {
+    public static void reset() {
         played.clear();
         taking = null;
         playedSuit = null;

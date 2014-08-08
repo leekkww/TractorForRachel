@@ -9,7 +9,8 @@ public class Round {
         DRAW, FLIP, CALL_FRIEND, PLAY, //dude these names suck
     }
 
-	private GameState gameState = null;
+
+
     public ArrayList<Card> deck; //hmm this should have 108 cards
     private ArrayList<Player> players;
     private Player firstPlayer; //player who plays first
@@ -52,7 +53,6 @@ public class Round {
             baggage.add(deck.remove(0));
         }
         System.out.println(baggage.toString());
-
 
     }
 
@@ -102,4 +102,5 @@ public class Round {
 
         //figure out how many points not-napoleon team got and figure out leveling up based on that
     }
+
 }
