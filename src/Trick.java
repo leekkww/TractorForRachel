@@ -15,7 +15,14 @@ public class Trick {
         player = null;
     }
 
+    public Trick(Player p, Card c) {
+        cards = new ArrayList<Card>();
+        cards.add(c);
+        player = p;
+    }
+
 	public Trick(Player p, ArrayList<Card> c) {
+        //notice that this constructor does not check whether or not it is a valid trick
 		cards = (ArrayList<Card>)(c.clone());//c.clone()? is this necessary? (possibly)
 		Collections.sort(cards);
 		player = p;
@@ -73,7 +80,7 @@ public class Trick {
 	 * 
 	 */
 	 
-	private class Tractor {
+	private class Tractor implements Comparable {
 		public Card firstCard;
 		public int length;
 		
@@ -84,11 +91,12 @@ public class Trick {
 		
 		/**
 		 * returns negative if t is smaller so that sorting makes larger tractors go first (since im lazy af)
-		 * sorry
+		 * sorry --bro it's k
 		 */
-		public int compareTo(Tractor t) {
+		public int compareTo(Object o) {
+            Tractor t = (Tractor)o;
 			if(length != t.length) return -length + t.length;
-			return -firstCard.compareTo(t.firstCard));
+			return -firstCard.compareTo(t.firstCard);
 		}
 	}
 	
@@ -148,7 +156,7 @@ public class Trick {
 		ArrayList<Tractor> ownTractor = pairToTractor(ownPairs);
 		ArrayList<Tractor> tTractor = pairToTractor(tPairs);
 		
-		int numTractors = min(ownTractor.size(), tTractor.size());
+		int numTractors = Math.min(ownTractor.size(), tTractor.size());
 		for(int i = 0; i < numTractors; i ++) {
 			if(ownTractor.get(i).compareTo(tTractor.get(i)) != 0) return -ownTractor.get(i).compareTo(tTractor.get(i));
 		}
@@ -171,13 +179,13 @@ public class Trick {
 		ArrayList<Tractor> tractors = new ArrayList<Tractor> ();
 		Collections.sort(pairs); //just in case, theoretically it should be sorted already
 		
-		while(!pairs.empty()) {
+		while(!pairs.isEmpty()) {
 			int length = 1;
 			
 			//this is supposed to set length = length of the tractor
 			while(length < pairs.size() && pairs.get(length-1).isNextTo(pairs.get(length))) length++; //TODO: test this
 			tractors.add(new Tractor(pairs.get(0), length));
-			pairs.removeRange(0, length);
+			//pairs.removeRange(0, length); //yo bro removeRange cannot be used because protected
 		}
 		
 		Collections.sort(tractors);
