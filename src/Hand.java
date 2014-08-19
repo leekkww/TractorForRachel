@@ -32,6 +32,10 @@ public class Hand {
         return false;
     }
 
+    public void sort() {
+        Collections.sort(hand);
+    }
+
     public Card get(int i) {
         return hand.get(i);
     }
