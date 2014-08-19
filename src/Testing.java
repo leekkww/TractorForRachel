@@ -55,7 +55,7 @@ public class Testing {
         } catch(InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("yo patrick");
+        System.out.println("yo patrick halp how does this work");
         //dealer.cancel();
         */
         Scanner sc = new Scanner(System.in);
