@@ -23,13 +23,29 @@ public class Hand {
             hand.remove(c);
         }
     }
-
+    
+    /*
+     * returns whether the hand contains a certain card
+     */
     public boolean contains(Card c) {
         for(Card handCard : hand)
         {
             if(c.equals(handCard)) { return true; }
         }
         return false;
+    }
+    
+    
+    /*
+     * returns whether the hand contains a pair of this card
+     */
+    public boolean containsPair(Card c) {
+    	int ct = 0;
+    	for(Card handCard : hand)
+    	{
+    		if(c.equals(handCard)) ct ++;
+    	}
+    	return (ct >= 2);
     }
 
     public Card get(int i) {
@@ -58,7 +74,7 @@ public class Hand {
         return true;
     }
 
-    public boolean isValidPlay(Trick play, Trick initPlay)
+    public boolean isValidPlay(Trick play, Trick initPlay) //TODO: make this better and finish
     {
         for(int i = 0; i < initPlay.size(); ++i)
         {

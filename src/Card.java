@@ -89,6 +89,14 @@ public class Card implements Comparable {
         else return suit();
     }
     
+    
+    /*
+     * returns true if the card is a joker, false otherwise
+     */
+    public boolean isJoker() {
+    	return value == Value.LOWJOKER || value == Value.HIGHJOKER;
+    }
+    
     public boolean isTrump() {return suit == trumpSuit || value == trumpValue || value == Value.LOWJOKER || value == Value.HIGHJOKER;}
     public int pointValue() {
         switch(value) {

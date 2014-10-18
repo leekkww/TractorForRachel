@@ -215,13 +215,64 @@ public class Trick {
                  * i actually have to think darn
                  * you know what a simple recursive brute force will work (problem size = at most 3 tractors lol)
                  */
-
+                
+                if(possibleToMakeTractor(tLengths, ownLengths) != tIsTrump) return 1;
+                else return -1;
+                
                 //return 1 if t is trump xor trump beats nontrump (the function for this requires work...)
                 //else return -1
             }
         }
 		return 0;
 	}
+	
+	/*
+	 * returns a value depending on if a trick supersedes another during flipping stage 
+	 */
+	public int compareForFlip(Trick t) {
+		
+		/*	the order for flipping is single nonjoker, single joker (not sure if high beats low)
+		 * 	double nonjoker, double joker (i think, check this)
+		 * 
+		 */
+		if(!isPair() && (size() != 1) ) return -1; //filter out anything that doesn't work
+		if(t == null) return 1; //everyone beats null
+		if(getPlayer() == t.getPlayer()) return 0; 
+		//filter out any trick whose cards aren't jokers or correct level
+		if(isPair() && !t.isPair()) return 1; // all pairs beat all nonpairs
+		if(!isPair() && t.isPair()) return -1;
+		Card ownCard = get(0);
+		Card tCard = t.get(0);
+		if(ownCard.isJoker() && !tCard.isJoker()) return 1;
+		if(!ownCard.isJoker() && tCard.isJoker()) return -1;
+		return 0;
+	}
+	
+    public static boolean possibleToMakeTractor(int[] a, int[] b) {
+        int ct = -1;
+        for(int i = b.length - 1; i > 0; i--) {
+            if(b[i] > 0) {
+                ct = i;
+                b[i]--;
+                break;
+            }
+        }
+        if(ct == -1) return true;
+        //boolean ret = false;
+        for(int i = ct; i < a.length; i ++) {
+            if(a[i] != 0) {
+                a[i]--;
+                if(i != ct) a[i-ct]++;
+                if(possibleToMakeTractor(a,b)) {
+                    return true;
+                }
+                a[i]++;
+                if(i != ct) a[i-ct]--;
+            }
+        }
+        b[ct]++;
+        return false;
+    }
 	
 	/**
 	 * @return an ArrayList of tractors from the pairs
@@ -238,6 +289,7 @@ public class Trick {
 			//this is supposed to set length = length of the tractor
 			while(length < pairs.size() && pairs.get(length-1).isNextTo(pairs.get(length))) length++; //TODO: test this
 			tractors.add(new Tractor(pairs.get(0), length));
+			for(int i = 0; i < length; i ++ ) pairs.remove(0);
 			//pairs.removeRange(0, length); //yo bro removeRange cannot be used because protected
 		}
 		

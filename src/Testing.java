@@ -12,14 +12,14 @@ public class Testing {
     public static final int PAUSE_INCREMENT = 10; //hmm I think 200 is a pretty good speed, takes 20~25 seconds to deal all
 
     public static void main(String[] args) {
-        /*
-        Round round = new Round();
+        
+        final Round round = new Round();
         round.setup();
         Card.setTrump(Card.Suit.CLUBS);
         Card.setTrump(Card.Value.TWO);
 
 
-        ArrayList<Player> players = new ArrayList<Player>();
+        final ArrayList<Player> players = new ArrayList<Player>();
         for (int i = 1; i < 5; i++) players.add(new Player("Rachel Zhang" + i,2));
         for (int i = 0; i < 4; i++) players.get(i).setNextPlayer(players.get((i + 1) % 4));
         round.setFirstPlayer(players.get(0));
@@ -27,10 +27,13 @@ public class Testing {
         //this is how you deal
         Timer dealer = new Timer("the one who deals");
         for (int i = 0; i < 100; i++) {
-            dealer.schedule(new DealACard(players.get(i % 4), round.deck.get(i)), i * PAUSE_INCREMENT + 5); //dude offset adding stuff and reading stuff so no concurrentmodificationexception
+            //dealer.schedule(new DealACard(players.get(i % 4), round.deck.get(i)), i * PAUSE_INCREMENT + 5); //dude offset adding stuff and reading stuff so no concurrentmodificationexception
+        	dealer.schedule(new DealACard(players.get(i % 4), round.deck.get(i), round),  i * PAUSE_INCREMENT + 5);
         }
         dealer.schedule(new DealACard(dealer), PAUSE_INCREMENT * 100); //this ends the dealing in a jank way
 
+        //what does this part do?
+        /*
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -41,13 +44,17 @@ public class Testing {
                     if(h.get(h.size()-1).value() == Card.Value.TWO)
                     {
                         //bigger method for flip  ----flip(new Trick(players.get(i),h.get(h.size()-1)));
+                    	if(round.flip(new Trick(players.get(i), h.get(h.size()-1)))) {
+                    		//flip the last card you get
+                    		System.out.println("\n\n\n\n\n\n\nFlip successful: " + h.get(h.size()-1));
+                    	}
                     }
                 }
 
             }
         }, 2*60*1000, PAUSE_INCREMENT);
-
-
+        */
+        
         //everything here is a different thread
         //ask the console for user input as they see their things
         try {
@@ -57,7 +64,8 @@ public class Testing {
         }
         System.out.println("yo patrick halp how does this work");
         //dealer.cancel();
-        */
+    	
+    	/*
         Scanner sc = new Scanner(System.in);
         while(true) {
             int m,n; int[] a, b;
@@ -68,7 +76,7 @@ public class Testing {
             b = new int[n];
             for(int i = 0 ; i < n; i ++) b[i] = sc.nextInt();
             System.out.println(blah(a,b));
-        }
+        }*/
     }
 
     //testing for (in Trick, compareTo) the comparing two sets of tractor things
@@ -104,7 +112,13 @@ class DealACard extends TimerTask {
     Player p;
     boolean cancel;
     Timer t;
+    
+    Round r; //testing the dealing
 
+    /*
+     * 
+     * if we use this constructor we are canceling the timer
+     */
     public DealACard(Timer timer) {
         cancel = true;
         t = timer;
@@ -112,10 +126,20 @@ class DealACard extends TimerTask {
         p = null;
     }
 
+    /*
+     * if we use this constructor we are dealing a card
+     */
     public DealACard(Player p, Card c) {
         this.p = p;
         this.c = c;
         cancel = false;
+    }
+    
+    public DealACard(Player p, Card c, Round r) {
+    	this.p = p;
+    	this.c = c;
+    	cancel = false;
+    	this.r = r;
     }
 
     public void run() {
@@ -124,7 +148,24 @@ class DealACard extends TimerTask {
             return;
         }
         p.addCard(c);
-        System.out.println(p.name + ": " + p.getHand() +p.getHand().size()+ "\n");
+        //System.out.println(p.name + ": " + p.getHand() +p.getHand().size()+ "\n"); //removed for less clutter
+        
+        //testing flipping, REMOVE FOR FINAL
+        
+        //flip two cards
+        if(p.getHand().containsPair(c)) {
+        	ArrayList<Card> toFlip = new ArrayList<Card> ();
+        	toFlip.add(c);
+        	toFlip.add(c);
+        	if(r.flip(new Trick(p, toFlip))) {
+        		System.out.println("Flip successful: " + toFlip + " " + p.name);
+        	}
+        }
+        
+        //flip one card
+        if(r.flip(new Trick(p, c))) {
+        	System.out.println("Flip successful: " + c + " " + p.name);
+        }
     }
 
 }

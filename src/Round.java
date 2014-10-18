@@ -9,7 +9,7 @@ public class Round {
         DRAW, FLIP, CALL_FRIEND, PLAY, //dude these names suck
     }
 
-
+    public static final int BAGGAGE_SIZE = 8;
 
     public ArrayList<Card> deck; //hmm this should have 108 cards
     private ArrayList<Player> players;
@@ -38,6 +38,7 @@ public class Round {
 
     /**
      * yo what does setup do???
+     * sets up the deck and initializes baggage
      */
     @SuppressWarnings("unchecked")
     public void setup() {
@@ -48,7 +49,7 @@ public class Round {
         Card.setTrump((Card.Value) null); //this is probably really really bad
 
         //leave baggage here
-        for(int i = 0; i<8; ++i) //8 must be modified for greater number of players
+        for(int i = 0; i < BAGGAGE_SIZE; ++i) //8 must be modified for greater number of players
         {
             baggage.add(deck.remove(0));
         }
@@ -71,8 +72,8 @@ public class Round {
     public boolean flip(Trick h) {
         //in which you flip things
         if(h.size() != 1 && !h.isPair()) return false; //can't flip dumby tricks
-        if(currentFlip == null || currentFlip.size() == 1 && h.size() == 2 || h.compareTo(currentFlip) > 0) { //this may fail joker flips
-            if(Card.normalValues()[h.getPlayer().getLevel()-2] == h.get(0).value() || h.get(0).value() == Card.Value.LOWJOKER) {//if it is pair of player level or jokers
+        if(h.compareForFlip(currentFlip) > 0) { //this may fail joker flips
+            if(Card.normalValues()[h.getPlayer().getLevel()-2] == h.get(0).value() || h.get(0).isJoker()) {//if it is pair of player level or jokers
                 //firstPlayer = h.getPlayer();
                 currentFlip = h;
                 trump = h.suit();
