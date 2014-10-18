@@ -48,6 +48,10 @@ public class Hand {
     	return (ct >= 2);
     }
 
+    public void sort() {
+        Collections.sort(hand);
+    }
+
     public Card get(int i) {
         return hand.get(i);
     }
