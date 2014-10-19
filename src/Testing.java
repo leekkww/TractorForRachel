@@ -63,9 +63,43 @@ public class Testing {
             e.printStackTrace();
         }
         System.out.println("yo patrick halp how does this work");
+        
         //dealer.cancel();
-    	
-    	/*
+        
+        //testing compareTo for different tricks, note that trump = 2, clubs
+        
+        Card.setTrump(Card.Suit.CLUBS);
+        Card.setTrump(Card.Value.TWO);
+        int a;
+        Scanner sc = new Scanner(System.in);
+        a = sc.nextInt();
+        while(a != 0)
+        {
+	        ArrayList<Card> cardList1 = new ArrayList<Card> (), cardList2 = new ArrayList<Card> ();
+	        for(int i = 0; i < a; i ++) {
+	        	String nextCard = sc.next();
+	        	cardList1.add(stringToCard(nextCard));
+	        }
+	        for(int i = 0; i < a; i ++) {
+	        	String nextCard = sc.next();
+	        	cardList2.add(stringToCard(nextCard));
+	        }
+	        
+	        Collections.sort(cardList1);
+	        Collections.sort(cardList2);
+	        
+	        Trick trick1 = new Trick(players.get(0), cardList1);
+	        Trick trick2 = new Trick(players.get(1), cardList2);
+	        System.out.println(trick1 + " " + trick1.suit());
+	        System.out.println(trick2 + " " + trick2.suit());
+	        System.out.println("trick1.compareTo(trick2): " + trick1.compareTo(trick2));
+	        //trick1 beats trick2 iff compareTo > 0
+	        
+	        a = sc.nextInt();
+        }
+        sc.close();
+    	/* for testing in Trick, compareTo, the comparing two sets of tractor things
+        
         Scanner sc = new Scanner(System.in);
         while(true) {
             int m,n; int[] a, b;
@@ -105,6 +139,43 @@ public class Testing {
         b[ct]++;
         return false;
     }
+    
+    /*
+     * returns a card given a string of the following format
+     * Non-jokers have two parts, a letter/number representing rank/value, and a letter representing suit
+     * (e.g. 2C is two of clubs)
+     * Jokers are either LJ or HJ for low joker or high joker
+     */
+    public static Card stringToCard(String s) {
+    	if(s.equals("LJ") || s.equals("lj")) return new Card(Card.Value.LOWJOKER, Card.Suit.NONE);
+    	if(s.equals("HJ") || s.equals("hj")) return new Card(Card.Value.HIGHJOKER, Card.Suit.NONE);
+    	//do other stuff
+    	Card.Value val;
+    	switch(s.charAt(0)) {
+    	case '2': val = Card.Value.TWO; break;
+    	case '3': val = Card.Value.THREE; break;
+    	case '4': val = Card.Value.FOUR; break;
+    	case '5': val = Card.Value.FIVE; break;
+    	case '6': val = Card.Value.SIX; break;
+    	case '7': val = Card.Value.SEVEN; break;
+    	case '8': val = Card.Value.EIGHT; break;
+    	case '9': val = Card.Value.NINE; break;
+    	case 'J': case 'j': val = Card.Value.JACK; break;
+    	case 'Q': case 'q': val = Card.Value.QUEEN; break;
+    	case 'K': case 'k': val = Card.Value.KING; break;
+    	case 'A': case 'a': val = Card.Value.ACE; break;
+    	default: val = Card.Value.LOWJOKER; //if this happens bad things happen
+    	}
+    	Card.Suit suit;
+    	switch(s.charAt(1)) {
+    	case 'C': case 'c': suit = Card.Suit.CLUBS; break;
+    	case 'D': case 'd': suit = Card.Suit.DIAMONDS; break;
+    	case 'H': case 'h': suit = Card.Suit.HEARTS; break;
+    	case 'S': case 's': suit = Card.Suit.SPADES; break;
+    	default: suit = Card.Suit.NONE;
+    	}
+    	return new Card(val, suit);
+    }
 }
 
 class DealACard extends TimerTask {
@@ -134,7 +205,9 @@ class DealACard extends TimerTask {
         this.c = c;
         cancel = false;
     }
-    
+    /*
+     * constructor if we want round to be used (debug purposes only)
+     */
     public DealACard(Player p, Card c, Round r) {
     	this.p = p;
     	this.c = c;
@@ -159,13 +232,17 @@ class DealACard extends TimerTask {
         	toFlip.add(c);
         	if(r.flip(new Trick(p, toFlip))) {
         		System.out.println("Flip successful: " + toFlip + " " + p.name);
+        	} else {
+        		//System.out.println("   Flip unsuccessful: " + toFlip + " " + p.name);
         	}
         }
         
         //flip one card
         if(r.flip(new Trick(p, c))) {
         	System.out.println("Flip successful: " + c + " " + p.name);
-        }
+        } else {
+    		//System.out.println("   Flip unsuccessful: " + c + " " + p.name);
+    	}
     }
 
 }

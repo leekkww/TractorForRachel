@@ -80,7 +80,15 @@ public class Hand {
 
     public boolean isValidPlay(Trick play, Trick initPlay) //TODO: make this better and finish
     {
-        for(int i = 0; i < initPlay.size(); ++i)
+        /*
+         * if the hand is void of the initPlay suit or will be then player can play anything
+         * else trick must consist of only the initPlay suit (effective suit)
+         * then we see how many tractors of all sizes there are in initPlay 
+         * starting from the biggest size, try to see if it is in hand and not in the trick played
+         * yeah do this sometime
+         */
+    	
+    	for(int i = 0; i < initPlay.size(); ++i)
         {
             //initPlay.get(0).isTrump();
         }
@@ -121,7 +129,7 @@ public class Hand {
         return false;
     }
 
-    public boolean hasLeadingCards() {
+    public boolean hasLeadingCards() { //what does this do? there's challenging so i don't think it's necessary
         return false;
     }
 

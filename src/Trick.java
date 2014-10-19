@@ -98,6 +98,10 @@ public class Trick {
 			if(length != t.length) return -length + t.length;
 			return -firstCard.compareTo(t.firstCard);
 		}
+		
+		public String toString() {
+			return firstCard + " " + length;
+		}
 	}
 
 
@@ -145,7 +149,7 @@ public class Trick {
 		ArrayList<Card> tPairs = new ArrayList<Card> ();
 		
 		for(int i = 0; i < ownCards.size(); i++) {
-			if(i < ownCards.size() - 1 && ownCards.get(i) == ownCards.get(i+1)) {
+			if(i < ownCards.size() - 1 && ownCards.get(i).equals(ownCards.get(i+1))) {
 				ownPairs.add(ownCards.get(i));
 				ownCards.remove(i);
 				ownCards.remove(i);
@@ -153,14 +157,17 @@ public class Trick {
 			}
 		}
 		for(int i = 0; i < tCards.size(); i++) {
-			if(i < tCards.size() - 1 && tCards.get(i) == tCards.get(i+1)) {
+			if(i < tCards.size() - 1 && tCards.get(i).equals(tCards.get(i+1))) {
 				tPairs.add(tCards.get(i));
 				tCards.remove(i);
 				tCards.remove(i);
 				i--;
 			}
 		}
-		
+		System.out.println("ownCards: " + ownCards); //debug stuff
+		System.out.println("ownPairs: " + ownPairs);
+		System.out.println("tCards: " + tCards);
+		System.out.println("tPairs: " + tPairs);
 		//by now tCards, ownCards should only have singles
 		
 		/* tractors consist of adjacent pairs, if we consider pairs as dumby tractors
@@ -219,7 +226,7 @@ public class Trick {
                 if(possibleToMakeTractor(tLengths, ownLengths) != tIsTrump) return 1;
                 else return -1;
                 
-                //return 1 if t is trump xor trump beats nontrump (the function for this requires work...)
+                //return 1 if t is trump xor trump beats nontrump (the function for this requires work...) (done i think)
                 //else return -1
             }
         }
